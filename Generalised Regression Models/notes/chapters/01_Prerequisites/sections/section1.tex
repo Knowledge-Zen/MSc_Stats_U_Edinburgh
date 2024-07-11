@@ -1,0 +1,412 @@
+\section{Discrete Probability Distribution}
+
+Consider an experiment where a biased coin is tossed $N$ times. Let $X$ denote the random variable representing the number of heads observed. The probability of getting a head in a single toss is denoted by $p$, and thus the probability of getting a tail is $q = 1 - p$. The sample space for this experiment consists of all possible outcomes of $N$ coin tosses. Each toss is independent, and the outcome of each toss is either a head or a tail. Therefore, the sample space has $2^N$ possible outcomes.
+
+The random variable $X$ represents the number of heads obtained in $N$ tosses. The possible values of $X$ are $\{0, 1, 2, \ldots, N\}$.
+
+\subsection{Binomial Distribution}
+
+\begin{definition}
+    The binomial distribution describes the probability of having exactly $k$ successes (heads in this case) in $N$ independent Bernoulli trials (coin tosses), each with success probability $p$.
+\end{definition}
+
+The probability mass function of $X$, the number of heads, is given by:
+\[
+    P(X = k) = \binom{N}{k} p^k (1 - p)^{N - k}
+\]
+where $\binom{N}{k}$ is the binomial coefficient.
+
+\vspace{8pt}
+\textbf{Expected Value and Variance}
+
+\begin{definition}
+    The expected value represents the average value of $X$ over all possible outcomes, weighted by their probabilities.
+\end{definition}
+
+The expected value \( E[X] \) of \( X \) is calculated as:
+
+\[
+    E[X] = \sum_{k=0}^{N} k \cdot P(X=k)
+\]
+
+where \( P(X=k) \) is the probability of getting exactly \( k \) heads in \( N \) tosses. Hence,
+
+\[
+    E[X] = \sum_{k=0}^{N} k \cdot \binom{N}{k} p^k (1-p)^{N-k}
+\]
+
+This represents the average number of heads obtained over a large number of Bernoulli trials.
+
+\begin{definition}
+    The variance is the measure of how much the values of $X$ deviate from the mean $E[X]$.
+\end{definition}
+
+The variance \( \text{Var}(X) \) of \( X \) is defined as:
+
+\[
+    \text{Var}(X) = E[(X - E[X])^2] = E[X^2] - (E[X])^2
+\]
+
+What's the physical interpretation of this? From the above expression, you can see that the variance can't be negative \textit{(because its the expected value of some quantity that is squared).} his value can't be zero. Because if variance is 0, it means it is a sure variable \textit{(where it's value is always equal to the mean)} and is no longer random. Any variable that can take multiple values, must have a non-zero positive variance.
+
+\vspace{8pt}
+\textbf{Generating Functions}
+
+\begin{important}
+    For a detailed exploration of generating functions, refer to Appendix \ref{appendix:generatingfunction}.
+\end{important}
+
+For the distribution of $X$, the generating function $f(z)$ is defined as:
+
+\[ f(z) = \sum_{n=0}^{N} P(X = n) \cdot z^n \]
+
+where $P(X = n)$ is the probability mass function of $X$. For our case, $P(n)$ representing the probability of obtaining exactly $n$ heads in $N$ tosses.
+
+For the binomial distribution, where $P(n) = \binom{N}{n} p^n q^{N-n}$, the generating function becomes:
+
+\[ f(z) = (pz + q)^N \]
+
+\begin{definition}
+    The \( r \)-th moment \( E[X^r] \) of \( X \) is defined as the r'th derivative of the generating function \( f(z) \) at \( z = 1 \):
+    \[ E[X^r] = \left. \frac{d^r}{dz^r} f(z) \right|_{z=1} \]
+\end{definition}
+
+Using this definition of moments, we can easily find the mean and the variance of the binomial distribution.
+
+\vspace{8pt}
+\textbf{Mean and Variance of Binomial Distribution using Generating Function}
+
+The mean \( \mu \) (expected value \( E[X] \)) can be found using the first derivative of \( f(z) \) at \( z = 1 \):
+\[ \mu = \left. \frac{d}{dz} f(z) \right|_{z=1} \]
+
+For \( f(z) = (pz + q)^N \),
+\[ \frac{d}{dz} f(z) = Np(pz + q)^{N-1} \]
+
+So,
+\[ \mu = Np \]
+
+The variance \( \sigma^2 \) (variance \( \text{Var}(X) \)) can be found using the second derivative of \( f(z) \) at \( z = 1 \):
+\[ \sigma^2 = \left. \frac{d^2}{dz^2} f(z) \right|_{z=1} + \mu - \mu^2 \]
+
+For \( f(z) = (pz + q)^N \),
+\[ \frac{d^2}{dz^2} f(z) = Np(N-1)(pz + q)^{N-2} \]
+
+So,
+\[ \sigma^2 = Np(N-1)p \]
+
+
+\begin{definition}
+    The relative fluctuation \( \text{RF} \) of a random variable \( X \) is defined as the ratio of its standard deviation to its mean:
+    \[ \text{RF} = \frac{\sigma}{\mu} \]
+
+    where \( \sigma \) is the standard deviation and \( \mu \) is the mean (expected value) of \( X \).
+\end{definition}
+
+Substituting the expressions for \( \sigma \) and \( \mu \):
+
+\[ \text{RF} = \frac{\sigma}{\mu} = \frac{\sqrt{Np(1-p)}}{Np} \]
+
+Therefore, the relative fluctuation \( \text{RF} \) of a binomially distributed random variable \( X \) is:
+
+\[ \text{RF} = \sqrt{\frac{{q}}{N \cdot p}} \]
+
+The important thing to notice here is that - the term \( \frac{1}{\sqrt{N}} \) in \( \text{RF} \) indicates how this quantity decreases as \( N \), the number of trials or degrees of freedom in a system, increases. This implies, the values relatively get closer and closer to mean, as the value of N increases. This characteristic is not unique to the binomial distribution but is typical in equilibrium systems.
+
+In such contexts, \( N \) often scales with the system's complexity, such as the number of particles in a gas or molecules in a substance. For large \( N \), like Avogadro's number for particles, \( N^{-1/2} \) becomes very small (approximately \( 10^{-12} \)), implying that \( \text{RF} \) diminishes significantly.
+
+This feature is pivotal because in equilibrium, thermodynamics focuses on average values of macroscopic properties and often disregards fluctuations. When \( N \) is large, the relative fluctuation \( \text{RF} \) becomes negligible compared to the mean value \( \mu \), supporting the validity of thermodynamic principles under these conditions. Refer to the example \ref{example:fluctuations}.
+
+\subsection{Geometric Distribution}
+
+Consider a coin with probability \( p \) of landing heads (H) and probability \( q = 1 - p \) of landing tails (T) each time it is tossed. Our experiment consists of repeatedly tossing the coin until we obtain heads for the first time. We are interested in finding the probability \( P_n \) that this first occurrence of heads happens on the \((n + 1)\)-th toss.
+
+To understand the situation better, let us consider what must happen for heads to appear for the first time on the \((n + 1)\)-th toss:
+\begin{enumerate}
+    \item The first \( n \) tosses must all result in tails.
+    \item The \((n + 1)\)-th toss must result in heads.
+\end{enumerate}
+
+\begin{definition}
+    The probability of the first \( n \) tosses all being tails is \( q^n \) since each tail has a probability \( q \) and the events are independent. The probability of the \((n + 1)\)-th toss being heads is \( p \).
+
+    Since these events are independent, we multiply their probabilities to get the probability \( P_n \):
+    \[
+        P_n = q^n \cdot p = (1 - p)^n \cdot p
+    \]
+
+    This distribution of probabilities is known as the \textit{geometric distribution}. It is called so because the probabilities form a geometric progression. The sample space of the random variable \( n \), which represents the number of tails before the first head, consists of all non-negative integers \( \{0, 1, 2, \ldots\} \).
+
+\end{definition}
+
+Let's check if the probability distribution normalized. To show that the geometric distribution is normalized, we need to show that the sum of all probabilities equals 1. Mathematically, this means proving:
+\[
+    \sum_{k=1}^{\infty} P(X = k) = \sum_{k=1}^{\infty} q^{k-1} p = 1
+\]
+
+Let's compute the sum:
+\[
+    \sum_{k=1}^{\infty} q^{k-1} p = p \sum_{k=1}^{\infty} q^{k-1}
+\]
+
+Recognize that \( \sum_{k=1}^{\infty} q^{k-1} \) is a geometric series with the first term \( a = 1 \) and common ratio \( r = q \):
+\[
+    \sum_{k=1}^{\infty} q^{k-1} = \sum_{n=0}^{\infty} q^n
+\]
+
+The sum of an infinite geometric series is given by \( \frac{1}{1 - r} \) for \( |r| < 1 \):
+\[
+    \sum_{n=0}^{\infty} q^n = \frac{1}{1 - q} = \frac{1}{p}
+\]
+
+Therefore:
+\[
+    p \sum_{k=1}^{\infty} q^{k-1} = p \cdot \frac{1}{p} = 1
+\]
+
+
+\textbf{Generating Function of the Geometric Distribution}
+
+The probability generating function f(z) for the geometric distribution is:
+
+\[
+    f(z) = \sum_{k=0}^{\infty} P(X = k) z^k = \sum_{k=0}^{\infty} q^k p z^k
+\]
+
+\[
+    f(z) = p \sum_{k=0}^{\infty} (qz)^k
+\]
+
+This is a geometric series with first term $a = 1$ and common ratio $r = qz$:
+\[
+    \sum_{k=0}^{\infty} (qz)^k = \frac{1}{1 - qz} \quad \text{for} \; |qz| < 1
+\]
+
+Thus:
+\[
+    f(z) = p \cdot \frac{1}{1 - qz} = \frac{p}{1 - qz}
+\]
+
+\textbf{Moments of the Geometric Distribution}
+
+
+The mean $E[X]$ can be derived using the generating function $f(z)$:
+\[
+    E[X] = f'(1)
+\]
+
+
+\[
+    f'(z) = \frac{pq}{(1 - qz)^2}
+\]
+
+\[
+    f'(1) = \frac{pq}{(1 - q)^2} = \frac{pq}{p^2} = \frac{q}{p}
+\]
+
+Hence, the mean is:
+\[
+    E[X] = \frac{q}{p}
+\]
+
+
+The variance $\text{Var}(X)$ can be derived using the second moment $E[X^2]$:
+\[
+    \text{Var}(X) = E[X^2] - (E[X])^2
+\]
+
+First, we find $E[X^2]$:
+\[
+    E[X^2] = f''(1) + f'(1)
+\]
+
+\[
+    f''(z) = \frac{2pq^2}{(1 - qz)^3}
+\]
+
+\[
+    f''(1) = \frac{2pq^2}{(1 - q)^3} = \frac{2pq^2}{p^3} = \frac{2q^2}{p^2}
+\]
+
+Thus:
+\[
+    E[X^2] = \frac{2q^2}{p^2} + \frac{q}{p}
+\]
+
+Now we can calculate the variance:
+\[
+    \text{Var}(X) = E[X^2] - (E[X])^2 = \frac{2q^2}{p^2} + \frac{q}{p} - \left(\frac{q}{p}\right)^2
+\]
+
+Simplify:
+\[
+    \text{Var}(X) = \frac{2q^2}{p^2} + \frac{q}{p} - \frac{q^2}{p^2} = \frac{q^2}{p^2} + \frac{q}{p} = \frac{q(q+p)}{p^2} = \frac{q}{p^2}
+\]
+
+Therefore, the variance is:
+\[
+    \text{Var}(X) = \frac{q}{p^2}
+\]
+
+
+Hence, the relative fluctuation is:
+\[
+    \text{Relative Fluctuation} = \frac{\frac{\sqrt{q}}{p}}{\frac{q}{p}} = \frac{\sqrt{q}}{q} = \frac{1}{\sqrt{q}}
+\]
+
+\begin{example}
+    \textbf{Time to Default in Credit Risk Modeling.}
+
+    In credit risk analysis, one of the key metrics is the probability of default (PD) over a given time horizon. Let's consider a simple model where we assume that for each period (e.g., a year), there is a constant probability $p$ that the borrower will default. The probability that the borrower does not default in a given period is then $q = 1 - p$.
+
+    We are interested in the random variable $X$, which represents the number of periods until default occurs. This scenario perfectly fits the geometric distribution.
+
+    The probability mass function of the geometric distribution in this context is:
+
+    \[
+        P(X = k) = q^{k-1}p, \quad k = 1, 2, 3, ...
+    \]
+
+    where $k$ is the number of periods until default.
+
+    Now, let's derive some important results for credit risk modeling using this distribution:
+
+    1. \textbf{Probability of Default within n Periods:}
+    The cumulative probability of default within n periods is:
+
+    \begin{align*}
+        P(X \leq n) & = 1 - P(X > n) \\
+                    & = 1 - q^n      \\
+                    & = 1 - (1-p)^n
+    \end{align*}
+
+    This is a crucial result in credit risk modeling, as it allows risk managers to estimate the probability of default over any given time horizon.
+
+    2. \textbf{Expected Time to Default:}
+    The expected value of a geometric distribution is 1/p. In our context:
+
+    \[
+        E[X] = \frac{1}{p}
+    \]
+
+    This gives us the average time to default, which is an important metric for assessing the long-term risk of a loan or bond.
+
+    3. \textbf{Survival Function:}
+    The survival function, which gives the probability that the borrower has not defaulted by time t, is:
+
+    \[
+        S(t) = P(X > t) = q^t = (1-p)^t
+    \]
+
+    This function is used in pricing credit-sensitive instruments and in calculating expected loss.
+
+    4. \textbf{Hazard Rate:}
+    The hazard rate, which represents the instantaneous default probability given survival up to time t, is constant in this model:
+
+    \[
+        h(t) = \frac{f(t)}{S(t)} = \frac{pq^{t-1}}{q^t} = p
+    \]
+
+    where f(t) is the probability mass function. This constant hazard rate is a key property of the geometric distribution and implies a "memoryless" default process.
+
+    5. \textbf{Value at Risk (VaR):}
+    For a given confidence level $\alpha$, the VaR in terms of time to default is:
+
+    \[
+        \text{VaR}_{\alpha} = \left\lceil \frac{\log(1-\alpha)}{\log(1-p)} \right\rceil
+    \]
+
+    where  $\lceil \cdot \rceil$ denotes the ceiling function. This gives the number of periods within which default will occur with probability $\alpha$.
+
+    6. \textbf{Expected Shortfall:}
+    The Expected Shortfall (ES), also known as Conditional VaR, for a continuous approximation of the geometric distribution is:
+
+    \[
+        \text{ES}_{\alpha} = \frac{\text{VaR}_{\alpha} + \frac{1}{p}}{1-\alpha}
+    \]
+
+    This measure provides the expected time to default given that default occurs within the VaR time horizon.
+
+    7. \textbf{Duration of a Default-Risky Zero-Coupon Bond:}
+    For a zero-coupon bond with maturity T and face value 1, assuming a constant risk-free rate r, the duration D is:
+
+    \[
+        D = \frac{\sum_{t=1}^T t \cdot e^{-rt} \cdot p(1-p)^{t-1}}{\sum_{t=1}^T e^{-rt} \cdot p(1-p)^{t-1}}
+    \]
+
+    This duration measure incorporates both interest rate risk and default risk, providing a more comprehensive measure of the bond's sensitivity to market changes.
+
+    The geometric distribution's application in credit risk modeling demonstrates its utility in financial mathematics. Its simplicity allows for tractable calculations, while still capturing the essential nature of default risk as a series of independent trials over time. However, it's important to note that this model assumes a constant default probability over time, which may not always be realistic. More sophisticated models might incorporate time-varying default probabilities or dependencies between defaults of different entities.
+\end{example}
+
+
+\subsection{Poisson Distribution}
+
+\begin{example}
+    \label{example:fluctuations}
+    \textbf{Fluctuations of Gas Molecules.} Consider a classical ideal gas of \( N \) molecules in thermal equilibrium inside a container of volume \( V \). The molecules move randomly, undergoing elastic collisions with each other. The average number density of the particles is \( \rho = \frac{N}{V} \).
+
+    Now, let's focus on a smaller sub-volume \( v \) within the container. The number of molecules \( n \) present in this sub-volume is a fluctuating quantity. At any given instant, \( n \) can range from 0 to \( N \). We want to find the probability \( P(n) \) that there are exactly \( n \) molecules in the sub-volume.
+
+    The a priori probability that a molecule resides within the sub-volume \( v \) is \( \frac{v}{V} \), because each molecule has an equal chance of being in any volume element within the container. Therefore, the probability that a molecule is outside \( v \) is \( 1 - \frac{v}{V} \).
+
+    Assuming independence among molecules (no correlation between their locations), the probability \( P(n) \) follows a binomial distribution:
+    \[ P(n) = \binom{N}{n} \left( \frac{v}{V} \right)^n \left( 1 - \frac{v}{V} \right)^{N-n} \]
+
+    This distribution has \( p = \frac{v}{V} = \frac{\rho v}{N} \), where \( \rho \) is the number density \( \frac{N}{V} \). The mean number of molecules in the sub-volume \( v \) is \( \langle n \rangle = \rho v \).
+
+    The relative fluctuation \( \text{RF} \) in \( n \), defined as \( \left[ \frac{1 - \rho v / N}{\rho v} \right]^{1/2} \), characterizes how much \( n \) fluctuates relative to its mean.
+
+    In the thermodynamic limit where \( N \to \infty \) and \( V \to \infty \) while keeping \( \rho = \frac{N}{V} \) fixed, the binomial distribution describing \( P(n) \) tends towards the Poisson distribution. This transition occurs because as \( N \) and \( V \) increase indefinitely, the discrete nature of the binomial distribution smoothens out, resembling the continuous Poisson distribution.
+
+    Specifically,
+    \begin{enumerate}
+        \item The mean number of molecules \( \langle n \rangle = \rho v \) remains unchanged in this limit, reflecting the average density within the sub-volume \( v \).
+        \item The relative fluctuation \( \text{RF} \), which measures the standard deviation relative to the mean, scales as \( (\rho v)^{-1/2} \). This indicates that as the system size increases, fluctuations in the number of molecules within \( v \) become proportionally smaller compared to the mean value.
+    \end{enumerate}
+
+    For a volume \( v = 1 \, \text{m}^3 \) of air at standard temperature and pressure:
+    \begin{itemize}
+        \item The number density of air molecules at STP is approximately \( \rho \approx 2.7 \times 10^{25} \, \text{m}^{-3} \). This value is derived from Avogadro's number and the molar volume of a gas at STP.
+              \[
+                  \rho = \frac{N_A}{22.4 \times 10^{-3} \, \text{m}^3} \approx 2.7 \times 10^{25} \, \text{m}^{-3}
+              \]
+        \item Using \( v = 1 \, \text{m}^3 \), the relative fluctuation \( \text{RF} \) is:
+              \[
+                  \text{RF} \approx \left( \rho v \right)^{-1/2} = \left( 2.7 \times 10^{25} \times 1 \, \text{m}^3 \right)^{-1/2} \approx 6.1 \times 10^{-13}
+              \]
+    \end{itemize}
+
+    This tiny relative fluctuation underscores how negligible the fluctuations are compared to the mean number of molecules, demonstrating the applicability of statistics/thermodynamics in describing macroscopic systems.
+
+\end{example}
+
+\subsection{Negative Binomial Distribution}
+
+
+
+
+
+
+
+
+\subsection*{Relative Fluctuation}
+
+The relative fluctuation is defined as the standard deviation divided by the mean value:
+
+\begin{align*}
+    \text{Relative Fluctuation} & = \frac{\sqrt{\text{Var}(X)}}{\mathbb{E}[X]} \\
+                                & = \frac{\sqrt{q/p^2}}{q/p}                   \\
+                                & = \frac{\sqrt{q}/p}{q/p}                     \\
+                                & = \frac{\sqrt{q}}{q}                         \\
+                                & = \frac{1}{\sqrt{q}}
+\end{align*}
+
+Therefore, we have shown that the relative fluctuation is $1/\sqrt{q}$.
+
+In conclusion, we have derived and verified all the requested properties of the Geometric Distribution using its generating function and moments:
+
+1. The mean value is $q/p$
+2. The variance is $q/p^2$
+3. The relative fluctuation is $1/\sqrt{q}$
+
+These results provide important insights into the behavior and characteristics of the Geometric Distribution, which is crucial for its applications in various fields, including finance and risk analysis.

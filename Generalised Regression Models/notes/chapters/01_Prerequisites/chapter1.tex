@@ -1,0 +1,71 @@
+\chapter{Prerequisites}
+\label{chap:prerequisites}
+
+Consider a scenario where you have a pair of distinguishable fair dice. We are interested in the distribution of the sum of the numbers appearing on the top faces of these dice when they are rolled. Let's denote this sum by the random variable \( S \). The possible values of \( S \) range from 2 to 12, since each die can roll a number between 1 and 6.
+
+The sample space of all possible outcomes (or microstates) when rolling two dice consists of 36 pairs, because each of the 6 faces of the first die can pair with any of the 6 faces of the second die. Therefore, the sample space \( \Omega \) is:
+\[
+\Omega = \{(i,j) \mid 1 \leq i \leq 6, 1 \leq j \leq 6\}
+\]
+where \( i \) and \( j \) represent the numbers on the top faces of the two dice.
+
+\textbf{Probability of a Particular Score}
+
+The possible values of $S$ (the macrostates) are the integers from 2 to 12. For each possible value of \( S \), we can calculate the probability \( P(S = k) \) by counting the number of pairs \((i,j)\) that sum to \( k \) and dividing by the total number of pairs (36). Let’s define \( S = i + j \).
+
+\[
+P(S = k) =
+\begin{cases}
+\dfrac{k-1}{36} & \text{for } 2 \leq k \leq 7 \vspace{5pt} \\
+\dfrac{13-k}{36} & \text{for } 8 \leq k \leq 12 
+\end{cases}
+\]
+
+The most common score, or the mode of this distribution, is 7. This is because there are more pairs that sum to 7 than any other number. Specifically, there are 6 such pairs: 
+\[
+(1,6), (2,5), (3,4), (4,3), (5,2), (6,1)
+\]
+Thus, the probability of rolling a 7 is:
+\[
+P(S = 7) = \frac{6}{36} = \frac{1}{6}
+\]
+
+\textbf{Uniform Distribution in Microstates Leading to Non-Uniform Distribution in Macrostates}
+
+An interesting observation in this example is that even though each individual pair of dice outcomes (microstates) has an equal probability of 1/36 (a uniform distribution), the distribution of the sum (macrostate) is not uniform. This is because the number of microstates that contribute to each macrostate varies.
+
+Physical systems/natural phenomena tend to reside in the most probable macrostate because it has the largest number of contributing microstates. In our dice example, the sum of 7 is the most probable macrostate because it has the highest number of pairs adding up to it. Here are some examples.
+
+Imagine you have a large jar filled with small, identical balls. You shake the jar, and the balls move around randomly. Now, think of the balls as gas molecules in a closed container. The positions and velocities of these molecules represent the microstates of the system. In thermodynamics, the macroscopic properties of the gas, such as temperature, pressure, and volume, are what we observe and measure. These properties are known as macrostates. Each macrostate can be realized by a vast number of different arrangements of the molecules (microstates).
+
+Entropy is a measure of the number of possible microstates that correspond to a particular macrostate. It quantifies the level of disorder or randomness in the system. The more ways there are to arrange the molecules without changing the macroscopic properties, the higher the entropy.
+
+\[
+S = k_B \ln(\Omega)
+\]
+
+Here, \( S \) is the entropy, \( k_B \) is the Boltzmann constant, and \( \Omega \) is the number of microstates corresponding to a given macrostate. This equation tells us that entropy increases logarithmically with the number of microstates.
+
+The second law of thermodynamics states that the entropy of an isolated system will tend to increase over time, reaching a maximum at equilibrium. This means that over time, the system will naturally progress towards the state with the highest entropy, because this state has the largest number of possible microstates.
+
+At equilibrium, the gas molecules are most likely found in the state with the highest entropy. This is because there are more ways (microstates) for the system to be in this state than in any other. For example, if the gas molecules can move around freely, they will spread out to fill the container evenly. This uniform distribution corresponds to the macrostate with the highest entropy, as it can be achieved by the largest number of different microstates.
+
+In finance, the principle can be observed in the context of portfolio diversification. Investors diversify their portfolios to spread risk and increase the probability of achieving a desired return. Each investment in the portfolio represents a microstate, and the overall performance of the portfolio represents the macrostate.
+
+\textbf{Case with the Indistinguishable Dice}
+
+Since the dice are indistinguishable, the order in which the numbers appear does not matter. For example, the outcome (1, 2) is the same as (2, 1). 
+
+The possible outcomes (microstates) for the two dice can be listed as:
+\[
+\begin{array}{l}
+(1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (2,2), (2,3), (2,4), (2,5), (2,6), \\
+(3,3), (3,4), (3,5), (3,6), (4,4), (4,5), (4,6), (5,5), (5,6), (6,6)
+\end{array}
+\]
+
+There are a total of 21 distinct microstates. The number of macrostates still remain the same, a set of integers from 2 to 12. 
+
+\input{chapters/01_Prerequisites/sections/section1.tex}
+\input{chapters/01_Prerequisites/sections/section2.tex}
+
